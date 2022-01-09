@@ -5,7 +5,6 @@ import Home from './pages/Home'
 const App = () => (
   <BrowserRouter>
       <Home path="/:page" />
-      <Home path="/" />
   </BrowserRouter>
 )
 
