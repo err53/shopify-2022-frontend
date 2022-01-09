@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const Card = ({ photo, setModalPhoto, onOpen, likes, toggleLike }) => (
+const Card = ({idx, photo, setModalPhoto, onOpen, likes, toggleLike }) => (
   <Stack
     boxShadow="lg"
     rounded="lg"
@@ -28,6 +28,7 @@ const Card = ({ photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         setModalPhoto(photo);
         onOpen();
       }}
+      aria-label="View photo"
     >
       <Image
         width="100%"
@@ -41,6 +42,8 @@ const Card = ({ photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         //     [idx]: true,
         //   });
         // }}
+        loading={idx < 9 ? null : "lazy"}
+        alt={`${photo.rover.name} - ${photo.camera.full_name}`}
       />
     </Button>
     <Stack px={5} pb={5} pt={2}>
@@ -55,6 +58,7 @@ const Card = ({ photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         onClick={() => {
           toggleLike(photo.id);
         }}
+        aria-label="Like photo"
       />
     </Stack>
   </Stack>

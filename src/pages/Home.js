@@ -83,8 +83,9 @@ const Home = () => {
         >
           {loading
             ? [...Array(9)].map((_, i) => <Skeleton key={i} />)
-            : data.photos.map((photo) => (
+            : data.photos.map((photo, idx) => (
                 <Card
+                  idx={idx}
                   photo={photo}
                   setModalPhoto={setModalPhoto}
                   onOpen={onOpen}

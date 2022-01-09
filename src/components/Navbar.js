@@ -19,18 +19,20 @@ const Navbar = ({ page, loading, data }) => {
           size="lg"
           icon={<FaArrowLeft />}
           disabled={page <= 1}
-          as={Link}
+          as={page <= 1 ? null : Link}
           to={`/${parseInt(page) - 1}`}
           bg="whiteAlpha.0"
+          aria-label="Previous page"
         />
         <Text>Page {page}</Text>
         <IconButton
           size="lg"
           icon={<FaArrowRight />}
           disabled={!loading && data.photos.length < 25}
-          as={Link}
+          as={!loading && data.photos.length < 25 ? null : Link}
           to={`/${parseInt(page) + 1}`}
           bg="whiteAlpha.0"
+          aria-label="Next page"
         />
       </HStack>
     </Center>
