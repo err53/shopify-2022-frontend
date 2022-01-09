@@ -69,7 +69,7 @@ const Home = () => {
   }, [params.page]);
 
   return (
-    <Box bg="gray.200">
+    <Box bg="gray.100">
       <Stack maxW={{ base: "auto", md: "1200px" }} px={5} mx="auto">
         <Heading as="h1" pt={5}>
           Spacestagram

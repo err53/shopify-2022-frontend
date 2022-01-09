@@ -11,7 +11,7 @@ const Navbar = ({ page, loading, data }) => {
         position="fixed"
         bottom="5"
         rounded="base"
-        bg='#E2E8F0BB'
+        bg='whiteAlpha.800'
         backdropFilter="blur(5px)"
         boxShadow="base"
       >

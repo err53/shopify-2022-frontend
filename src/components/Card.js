@@ -58,6 +58,7 @@ const Card = ({idx, photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         onClick={() => {
           toggleLike(photo.id);
         }}
+        colorScheme={likes[photo.id] ? "red" : "gray"}
         aria-label="Like photo"
       />
     </Stack>
