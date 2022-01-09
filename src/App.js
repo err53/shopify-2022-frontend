@@ -1,12 +1,12 @@
 import React from "react";
-import { Router } from "@reach/router";
+import { BrowserRouter } from "react-router-dom";
 import Home from './pages/Home'
 
 const App = () => (
-  <Router>
+  <BrowserRouter>
       <Home path="/:page" />
       <Home path="/" />
-  </Router>
+  </BrowserRouter>
 )
 
 export default App;
