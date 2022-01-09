@@ -15,10 +15,11 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalHeader,
+  Link,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
-import {useParams} from "react-router-dom"
+import { useParams, Link as RouterLink } from "react-router-dom";
 
 const useFetch = (page) => {
   const [data, setData] = useState(null);
@@ -41,8 +42,8 @@ const useFetch = (page) => {
 };
 
 const Home = () => {
-  let params = useParams()
-  params.page = params.page || 1
+  let params = useParams();
+  params.page = params.page || 1;
   const [likes, setLikes] = useState(
     JSON.parse(localStorage.getItem("likes")) || {}
   );
@@ -63,17 +64,23 @@ const Home = () => {
     );
   };
 
-  // scroll to top after page change
+  const headingRef = React.useRef(null);
+  // scroll to top and set focus after page change
   useEffect(() => {
     window.scrollTo(0, 0);
+    console.log(headingRef.current)
+    headingRef.current.focus();
   }, [params.page]);
 
   return (
     <Box bg="gray.100">
       <Stack maxW={{ base: "auto", md: "1200px" }} px={5} mx="auto">
         <Heading as="h1" pt={5}>
-          Spacestagram
+          <Link as={RouterLink} to="/" ref={headingRef}>
+            Spacestagram
+          </Link>
         </Heading>
+
         <Text>Data from the NASA Mars Rover Photos API</Text>
         <SimpleGrid
           minChildWidth="300px"
@@ -85,6 +92,7 @@ const Home = () => {
             ? [...Array(9)].map((_, i) => <Skeleton key={i} />)
             : data.photos.map((photo, idx) => (
                 <Card
+                  key={photo.id}
                   idx={idx}
                   photo={photo}
                   setModalPhoto={setModalPhoto}
@@ -98,13 +106,20 @@ const Home = () => {
       <Navbar page={params.page} loading={loading} data={data} />
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
-        <ModalContent overflow="hidden" w="auto" m="auto" minH='0!important' >
+        <ModalContent overflow="hidden" w="auto" m="auto" minH="0!important">
           <ModalCloseButton />
           <ModalHeader>
-            <Heading>{modalPhoto?.rover?.name} - {modalPhoto?.camera?.full_name}</Heading>
+            <Heading>
+              {modalPhoto?.rover?.name} - {modalPhoto?.camera?.full_name}
+            </Heading>
           </ModalHeader>
           <ModalBody p={0} pb="10" minH={0}>
-            <Image src={modalPhoto?.img_src}  fit="scale-down"/>
+            <Image
+              src={modalPhoto?.img_src}
+              fit="scale-down"
+              alt={`${modalPhoto?.rover?.name} - ${modalPhoto?.camera?.full_name}`}
+              fallback={<Skeleton minH="300px" height="100%" width="100%" />}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>

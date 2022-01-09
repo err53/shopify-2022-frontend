@@ -14,7 +14,6 @@ const Card = ({idx, photo, setModalPhoto, onOpen, likes, toggleLike }) => (
     boxShadow="lg"
     rounded="lg"
     bg="white"
-    key={photo.id}
     // overflow="hidden"
     alignItems="stretch"
   >
