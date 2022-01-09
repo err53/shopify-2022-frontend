@@ -34,7 +34,7 @@ const Card = ({ photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         height="100%"
         src={photo.img_src}
         fit="cover"
-        fallback={<Skeleton height="300px" />}
+        fallback={<Skeleton minH="300px" height="100%" width="100%"/>}
         // onDoubleClick={() => {
         //   setLikes({
         //     ...likes,
