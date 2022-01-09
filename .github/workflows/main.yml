@@ -28,9 +28,6 @@ jobs:
     - name: Build
       run: yarn build
     
-    - name: Run tests
-      run: yarn test
-    
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
