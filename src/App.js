@@ -19,8 +19,11 @@ import {
   ModalCloseButton,
   ModalBody,
   Button,
+  Heading,
 } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight, FaHeart, FaRegHeart } from "react-icons/fa";
+import Footer from "./components/Footer";
+import Card from "./components/Card";
 
 const useFetch = (page) => {
   const [data, setData] = useState(null);
@@ -43,7 +46,9 @@ const useFetch = (page) => {
 };
 
 function App() {
-  const [likes, setLikes] = useState(JSON.parse(localStorage.getItem("likes")) || {});
+  const [likes, setLikes] = useState(
+    JSON.parse(localStorage.getItem("likes")) || {}
+  );
   const [page, setPage] = useState(1);
   const [modalImageUrl, setModalImageUrl] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,8 +60,11 @@ function App() {
   // update state of likes and save to local storage
   const toggleLike = (id) => {
     setLikes({ ...likes, [id]: !likes[id] });
-    console.log(JSON.stringify({ ...likes, [id]: !likes[id] }))
-    localStorage.setItem("likes", JSON.stringify({ ...likes, [id]: !likes[id] }));
+    console.log(JSON.stringify({ ...likes, [id]: !likes[id] }));
+    localStorage.setItem(
+      "likes",
+      JSON.stringify({ ...likes, [id]: !likes[id] })
+    );
   };
   // scroll to top after page change
   useEffect(() => {
@@ -64,88 +72,37 @@ function App() {
   }, [page]);
 
   return (
-    <>
-      <Center p="5" bg="gray.200">
+    <Box bg="gray.200">
+      <Heading as="h1" pt={5} px={5}>Spacestagram</Heading>
+      <Center p="5">
         <SimpleGrid
           minChildWidth="300px"
           spacing="10"
           minHeight="100vh"
           maxW={{ base: "100%", md: "1000px" }}
-          pb='20'
+          pb="20"
         >
           {loading
             ? [...Array(9)].map((_, i) => <Skeleton key={i} />)
             : data.photos.map((photo) => (
-                <Stack
-                  boxShadow="base"
-                  rounded="base"
-                  bg="white"
-                  key={photo.id}
-                  overflow="hidden"
-                >
-                  <button
-                    onClick={() => {
-                      setModalImageUrl(photo.img_src);
-                      onOpen();
-                    }}
-                  >
-                    <Image
-                      src={photo.img_src}
-                      width="100%"
-                      loading="lazy"
-                      // onDoubleClick={() => {
-                      //   setLikes({
-                      //     ...likes,
-                      //     [idx]: true,
-                      //   });
-                      // }}
-                    />
-                  </button>
-                  <Box p="6">
-                    <Text>{photo.earth_date}</Text>
-                    <Text>
-                      Taken by {photo.rover.name} using the{" "}
-                      {photo.camera.full_name}
-                    </Text>
-                    <IconButton
-                      icon={likes[photo.id] ? <FaHeart /> : <FaRegHeart />}
-                      onClick={() => {
-                        toggleLike(photo.id);
-                      }}
-                    />
-                  </Box>
-                </Stack>
+                <Card
+                  photo={photo}
+                  setModalImageUrl={setModalImageUrl}
+                  onOpen={onOpen}
+                  likes={likes}
+                  toggleLike={toggleLike}
+                />
               ))}
         </SimpleGrid>
       </Center>
-      <Center>
-        <HStack spacing="10" position="fixed" bottom="5" rounded="base" bg="whiteAlpha.800" backdropFilter='blur(5px)' boxShadow='base'>
-          <IconButton
-            icon={<FaArrowLeft />}
-            disabled={page <= 1}
-            onClick={() => {
-              setPage(page - 1);
-            }}
-            bg="whiteAlpha.0"
-          />
-          <Text>Page {page}</Text>
-          <IconButton
-            icon={<FaArrowRight />}
-            disabled={!loading && data.photos.length < 25}
-            onClick={() => {
-              setPage(page + 1);
-            }}
-            bg="whiteAlpha.0"
-          />
-        </HStack>
-      </Center>
+      <Footer page={page} setPage={setPage} loading={loading} data={data} />
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <Image src={modalImageUrl} />
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   );
 }
 
