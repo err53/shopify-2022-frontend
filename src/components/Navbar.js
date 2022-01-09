@@ -1,8 +1,9 @@
 import React from "react";
 import { Center, HStack, IconButton, Text } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ page, setPage, loading, data }) => {
+const Navbar = ({ page, loading, data }) => {
   return (
     <Center>
       <HStack
@@ -18,10 +19,8 @@ const Navbar = ({ page, setPage, loading, data }) => {
           size="lg"
           icon={<FaArrowLeft />}
           disabled={page <= 1}
-          onClick={() => {
-            window.history.replaceState(null, "", page - 1)
-            setPage(page - 1);
-          }}
+          as={Link}
+          to={`/${parseInt(page) - 1}`}
           bg="whiteAlpha.0"
         />
         <Text>Page {page}</Text>
@@ -29,10 +28,8 @@ const Navbar = ({ page, setPage, loading, data }) => {
           size="lg"
           icon={<FaArrowRight />}
           disabled={!loading && data.photos.length < 25}
-          onClick={() => {
-            window.history.replaceState(null, "", page + 1)
-            setPage(page + 1);
-          }}
+          as={Link}
+          to={`/${parseInt(page) + 1}`}
           bg="whiteAlpha.0"
         />
       </HStack>

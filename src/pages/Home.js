@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import {useParams} from "react-router-dom"
 
 const useFetch = (page) => {
   const [data, setData] = useState(null);
@@ -39,15 +40,16 @@ const useFetch = (page) => {
   return { data, loading };
 };
 
-const Home = (props) => {
+const Home = () => {
+  let params = useParams()
+  params.page = params.page || 1
   const [likes, setLikes] = useState(
     JSON.parse(localStorage.getItem("likes")) || {}
   );
-  const [page, setPage] = useState(parseInt(props.page) || 1);
   const [modalPhoto, setModalPhoto] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { data, loading } = useFetch(page);
+  const { data, loading } = useFetch(params.page);
   // const data = true;
   // const loading = true;
 
@@ -60,10 +62,11 @@ const Home = (props) => {
       JSON.stringify({ ...likes, [id]: !likes[id] })
     );
   };
+
   // scroll to top after page change
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [page]);
+  }, [params.page]);
 
   return (
     <Box bg="gray.200">
@@ -91,7 +94,7 @@ const Home = (props) => {
               ))}
         </SimpleGrid>
       </Stack>
-      <Navbar page={page} setPage={setPage} loading={loading} data={data} />
+      <Navbar page={params.page} loading={loading} data={data} />
       <Modal isOpen={isOpen} onClose={onClose} size="full">
         <ModalOverlay />
         <ModalContent overflow="hidden" w="auto" m="auto" minH='0!important' >
