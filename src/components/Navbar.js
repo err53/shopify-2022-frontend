@@ -1,7 +1,6 @@
 import React from "react";
 import { Center, HStack, IconButton, Text } from "@chakra-ui/react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { Link } from "@reach/router";
 
 const Navbar = ({ page, setPage, loading, data }) => {
   return (
