@@ -2,6 +2,7 @@
 
 This is a repository that completes the frontend challenge for Shopify's 2022 Frontend position.
 
+[Check it out here!](https://err53.github.io/shopify-2022-frontend)
 
 ## Prerequisites
 - Make sure Node.js and Yarn are installed
