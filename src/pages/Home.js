@@ -67,8 +67,9 @@ const Home = () => {
   const headingRef = React.useRef(null);
   // scroll to top and set focus after page change
   useEffect(() => {
-    window.scrollTo(0, 0);
-    console.log(headingRef.current)
+    if (!process.env.NODE_ENV === "test") {
+      window.scrollTo(0, 0);
+    }
     headingRef.current.focus();
   }, [params.page]);
 
