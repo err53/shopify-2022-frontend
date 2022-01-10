@@ -90,7 +90,7 @@ const Home = () => {
           pb="20"
         >
           {loading
-            ? [...Array(9)].map((_, i) => <Skeleton key={i} />)
+            ? [...Array(9)].map((_, i) => <Skeleton key={i} data-testid="skeleton" />)
             : data.photos.map((photo, idx) => (
                 <Card
                   key={photo.id}

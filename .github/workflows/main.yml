@@ -30,6 +30,11 @@ jobs:
       env:
         REACT_APP_NASA_API_KEY: ${{ secrets.REACT_APP_NASA_API_KEY }}
     
+    - name: Test
+      run: yarn test
+      env:
+        REACT_APP_NASA_API_KEY: ${{ secrets.REACT_APP_NASA_API_KEY }}
+    
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
