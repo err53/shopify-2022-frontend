@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ page, loading, data }) => {
   return (
-    <Center>
+    <Center as="nav">
       <HStack
         spacing="10"
         position="fixed"
