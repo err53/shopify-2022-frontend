@@ -23,6 +23,7 @@ const Navbar = ({ page, loading, data }) => {
           to={`/${parseInt(page) - 1}`}
           bg="whiteAlpha.0"
           aria-label="Previous page"
+          data-testid="navbar-prev"
         />
         <Text>Page {page}</Text>
         <IconButton
@@ -33,6 +34,7 @@ const Navbar = ({ page, loading, data }) => {
           to={`/${parseInt(page) + 1}`}
           bg="whiteAlpha.0"
           aria-label="Next page"
+          data-testid="navbar-next"
         />
       </HStack>
     </Center>
