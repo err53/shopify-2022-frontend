@@ -34,7 +34,7 @@ const Card = ({idx, photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         height="100%"
         src={photo.img_src}
         fit="cover"
-        fallback={<Skeleton minH="300px" height="100%" width="100%"/>}
+        fallback={<Skeleton minH="300px" height="100%" width="100%" data-testid="card-skeleton"/>}
         // onDoubleClick={() => {
         //   setLikes({
         //     ...likes,
@@ -43,6 +43,7 @@ const Card = ({idx, photo, setModalPhoto, onOpen, likes, toggleLike }) => (
         // }}
         loading={idx < 9 ? null : "lazy"}
         alt={`${photo.rover.name} - ${photo.camera.full_name}`}
+        data-testid="card-image"
       />
     </Button>
     <Stack px={5} pb={5} pt={2}>
